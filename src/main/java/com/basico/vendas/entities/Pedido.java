@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Pedido implements Serializable {
@@ -16,12 +18,13 @@ public class Pedido implements Serializable {
     private Long id;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
     private Instant momento;
-
     private Integer status;
-
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_user_client"))
     private User user;
+
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<PedidoItem> items = new HashSet<>();
 
     public Pedido() {
     }
@@ -59,6 +62,10 @@ public class Pedido implements Serializable {
 
     public PedidoStatus getStatus() {
         return PedidoStatus.valueOf(status);
+    }
+
+    public Set<PedidoItem> getItems() {
+        return items;
     }
 
     public void setStatus(PedidoStatus status) {
