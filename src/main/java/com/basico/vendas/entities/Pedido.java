@@ -22,9 +22,10 @@ public class Pedido implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_user_client"))
     private User user;
-
     @OneToMany(mappedBy = "id.pedido")
     private Set<PedidoItem> items = new HashSet<>();
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private Pagamento pagamento;
 
     public Pedido() {
     }
@@ -62,6 +63,14 @@ public class Pedido implements Serializable {
 
     public PedidoStatus getStatus() {
         return PedidoStatus.valueOf(status);
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
     }
 
     public Set<PedidoItem> getItems() {

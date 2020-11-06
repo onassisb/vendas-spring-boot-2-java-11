@@ -61,5 +61,8 @@ public class TestConfig implements CommandLineRunner {
         var pi4 = new PedidoItem(p3, pr2, 2, pr2.getPreco());
         pedidoItemRepository.saveAll(Arrays.asList(pi1, pi2, pi3,pi4));
 
+        var pagamento = new Pagamento(null, Instant.parse("2020-07-22T16:21:22Z"), p3);
+        p3.setPagamento(pagamento);
+        pedidoRepository.save(p3);
     }
 }
