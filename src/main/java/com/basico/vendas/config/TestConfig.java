@@ -2,6 +2,7 @@ package com.basico.vendas.config;
 
 import com.basico.vendas.entities.Pedido;
 import com.basico.vendas.entities.User;
+import com.basico.vendas.entities.enums.PedidoStatus;
 import com.basico.vendas.repositories.PedidoRepository;
 import com.basico.vendas.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,9 @@ public class TestConfig implements CommandLineRunner {
         var u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
         userRepository.saveAll(Arrays.asList(u1, u2));
 
-        var p1 = new Pedido(null, Instant.parse("2020-06-20T19:53:07Z"), u1);
-        var p2 = new Pedido(null, Instant.parse("2020-07-21T03:42:10Z"), u2);
-        var p3 = new Pedido(null, Instant.parse("2020-07-22T15:21:22Z"), u1);
+        var p1 = new Pedido(null, Instant.parse("2020-06-20T19:53:07Z"), u1, PedidoStatus.ENTREGUE);
+        var p2 = new Pedido(null, Instant.parse("2020-07-21T03:42:10Z"), u2, PedidoStatus.ENVIADO);
+        var p3 = new Pedido(null, Instant.parse("2020-07-22T15:21:22Z"), u1, PedidoStatus.PAGO);
         pedidoRepository.saveAll(Arrays.asList(p1, p2, p3));
     }
 }

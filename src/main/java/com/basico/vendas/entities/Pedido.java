@@ -1,5 +1,6 @@
 package com.basico.vendas.entities;
 
+import com.basico.vendas.entities.enums.PedidoStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -15,6 +16,9 @@ public class Pedido implements Serializable {
     private Long id;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
     private Instant momento;
+
+    private Integer status;
+
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_user_client"))
     private User user;
@@ -22,9 +26,10 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
-    public Pedido(Long id, Instant momento, User user) {
+    public Pedido(Long id, Instant momento, User user, PedidoStatus status) {
         this.id = id;
         this.momento = momento;
+        setStatus(status);
         this.user = user;
     }
 
@@ -50,6 +55,16 @@ public class Pedido implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public PedidoStatus getStatus() {
+        return PedidoStatus.valueOf(status);
+    }
+
+    public void setStatus(PedidoStatus status) {
+        if (status != null) {
+            this.status = status.getCode();
+        }
     }
 
     @Override
