@@ -1,5 +1,7 @@
 package com.basico.vendas.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -16,6 +18,9 @@ public class Produto implements Serializable {
     private String descricao;
     private Double preco;
     private String imgUrl;
+    @OneToMany(mappedBy = "id.produto")
+    private Set<PedidoItem> items = new HashSet<>();
+
     @ManyToMany
     @JoinTable(name = "produto_categoria",
             joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
@@ -74,6 +79,15 @@ public class Produto implements Serializable {
 
     public Set<Categoria> getCategorias() {
         return categorias;
+    }
+
+    @JsonIgnore
+    public Set<Pedido> getPedidos(){
+        var pedidos = new HashSet<Pedido>();
+        for (PedidoItem item : items ) {
+            pedidos.add(item.getPedido());
+        }
+        return pedidos;
     }
 
     @Override
