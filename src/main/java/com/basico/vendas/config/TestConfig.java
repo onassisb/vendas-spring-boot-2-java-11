@@ -1,10 +1,13 @@
 package com.basico.vendas.config;
 
+import com.basico.vendas.entities.Categoria;
 import com.basico.vendas.entities.Pedido;
 import com.basico.vendas.entities.User;
 import com.basico.vendas.entities.enums.PedidoStatus;
+import com.basico.vendas.repositories.CategoriaRepository;
 import com.basico.vendas.repositories.PedidoRepository;
 import com.basico.vendas.repositories.UserRepository;
+import com.basico.vendas.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +25,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private PedidoRepository pedidoRepository;
 
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
     @Override
     public void run(String... args) throws Exception {
         var u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
@@ -32,5 +38,10 @@ public class TestConfig implements CommandLineRunner {
         var p2 = new Pedido(null, Instant.parse("2020-07-21T03:42:10Z"), u2, PedidoStatus.ENVIADO);
         var p3 = new Pedido(null, Instant.parse("2020-07-22T15:21:22Z"), u1, PedidoStatus.PAGO);
         pedidoRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+        var c1 = new Categoria(null, "Informática");
+        var c2 = new Categoria(null, "Eletrônicos");
+        var c3 = new Categoria(null, "Eletrodomesticos");
+        categoriaRepository.saveAll(Arrays.asList(c1,c2,c3));
     }
 }
