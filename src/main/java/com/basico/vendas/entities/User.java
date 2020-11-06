@@ -1,5 +1,7 @@
 package com.basico.vendas.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ public class User implements Serializable {
     private String email;
     private String tel;
     private String senha;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Pedido> pedidos = new ArrayList<>();
 
