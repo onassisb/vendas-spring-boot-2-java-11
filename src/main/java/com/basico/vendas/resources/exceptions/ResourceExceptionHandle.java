@@ -1,5 +1,6 @@
 package com.basico.vendas.resources.exceptions;
 
+import com.basico.vendas.services.exceptions.DataBaseException;
 import com.basico.vendas.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,13 @@ public class ResourceExceptionHandle {
     public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest request){
         var error = "recurso não encontrado";
         var status = HttpStatus.NOT_FOUND;
+        var standardError = new StandardError(Instant.now(),status.value(),error,e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(standardError);
+    }
+    @ExceptionHandler(DataBaseException.class)
+    public ResponseEntity<StandardError> resourceNotFound(DataBaseException e, HttpServletRequest request){
+        var error = "Database error";
+        var status = HttpStatus.BAD_REQUEST;
         var standardError = new StandardError(Instant.now(),status.value(),error,e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(standardError);
     }
