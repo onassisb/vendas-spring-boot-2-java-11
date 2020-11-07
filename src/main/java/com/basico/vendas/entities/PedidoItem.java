@@ -59,6 +59,10 @@ public class PedidoItem implements Serializable {
         id.setProduto(produto);
     }
 
+    public Double getSubTotal(){
+        return preco * quantidade;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,4 +75,5 @@ public class PedidoItem implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
