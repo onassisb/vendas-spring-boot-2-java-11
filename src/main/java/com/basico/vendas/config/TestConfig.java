@@ -29,8 +29,8 @@ public class TestConfig implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        var u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
-        var u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
+        var u1 = new Usuario(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
+        var u2 = new Usuario(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
         userRepository.saveAll(Arrays.asList(u1, u2));
 
         var p1 = new Pedido(null, Instant.parse("2020-06-20T19:53:07Z"), u1, PedidoStatus.ENTREGUE);

@@ -1,6 +1,6 @@
 package com.basico.vendas.services;
 
-import com.basico.vendas.entities.User;
+import com.basico.vendas.entities.Usuario;
 import com.basico.vendas.repositories.UserRepository;
 import com.basico.vendas.services.exceptions.DataBaseException;
 import com.basico.vendas.services.exceptions.ResourceNotFoundException;
@@ -18,16 +18,16 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> findAll() {
+    public List<Usuario> findAll() {
         return userRepository.findAll();
     }
 
-    public User findById(Long id) {
+    public Usuario findById(Long id) {
 
         return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public User insert(User user) {
+    public Usuario insert(Usuario user) {
         return userRepository.save(user);
     }
 
@@ -41,7 +41,7 @@ public class UserService {
         }
     }
 
-    public User update(Long id, User user) {
+    public Usuario update(Long id, Usuario user) {
         try {
             var entity = userRepository.getOne(id);
             updateData(entity, user);
@@ -51,7 +51,7 @@ public class UserService {
         }
     }
 
-    private void updateData(User entity, User user) {
+    private void updateData(Usuario entity, Usuario user) {
         entity.setNome(user.getNome());
         entity.setEmail(user.getEmail());
         entity.setTel(user.getTel());

@@ -21,7 +21,7 @@ public class Pedido implements Serializable {
     private Integer status;
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_user_client"))
-    private User user;
+    private Usuario user;
     @OneToMany(mappedBy = "id.pedido")
     private Set<PedidoItem> items = new HashSet<>();
     @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
@@ -30,7 +30,7 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
-    public Pedido(Long id, Instant momento, User user, PedidoStatus status) {
+    public Pedido(Long id, Instant momento, Usuario user, PedidoStatus status) {
         this.id = id;
         this.momento = momento;
         setStatus(status);
@@ -53,11 +53,11 @@ public class Pedido implements Serializable {
         this.momento = momento;
     }
 
-    public User getUser() {
+    public Usuario getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Usuario user) {
         this.user = user;
     }
 

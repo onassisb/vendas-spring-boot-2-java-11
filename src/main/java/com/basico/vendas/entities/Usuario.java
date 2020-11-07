@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class User implements Serializable {
+public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 6658120330818084314L;
     @Id
@@ -24,10 +24,10 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<Pedido> pedidos = new ArrayList<>();
 
-    public User() {
+    public Usuario() {
     }
 
-    public User(Long id, String nome, String email, String tel, String senha) {
+    public Usuario(Long id, String nome, String email, String tel, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -83,7 +83,7 @@ public class User implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        Usuario user = (Usuario) o;
         return Objects.equals(id, user.id);
     }
 
