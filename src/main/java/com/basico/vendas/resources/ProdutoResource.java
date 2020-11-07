@@ -4,6 +4,7 @@ import com.basico.vendas.entities.Produto;
 import com.basico.vendas.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,12 +17,12 @@ public class ProdutoResource {
     @Autowired
     private ProdutoService produtoService;
 
-    @RequestMapping
+    @GetMapping
     public ResponseEntity<List<Produto>> findAll(){
         return ResponseEntity.ok().body(produtoService.findAll());
     }
 
-    @RequestMapping(value = "/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Produto> findById(@PathVariable Long id){
         return ResponseEntity.ok().body(produtoService.findById(id));
     }
